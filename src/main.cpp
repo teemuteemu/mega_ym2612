@@ -26,6 +26,86 @@
 #define YM_DATA_6 (6) // PA6 pin 28 for Arduino Mega
 #define YM_DATA_7 (7) // PA7 pin 29 for Arduino Mega
 
+typedef struct {
+	uint8_t totalLevel;          // 7bit 0-127
+	uint8_t detune;              // 3bit 0-7
+	uint8_t multiply;            // 4bit 0-15
+	uint8_t amplitudeModulation; // 1bit 0-1
+	uint8_t secondaryAmplitude;  // 4bit 0-15
+	uint8_t rateScaling;         // 2bit 0-3
+	uint8_t attackRate;          // 5bit 0-31
+	uint8_t decayRate1;          // 5bit 0-31
+	uint8_t decayRate2;          // 5bit 0-31
+	uint8_t releaseRate;         // 4bit 0-15
+} Op;
+
+typedef struct {
+	uint8_t frequencyLSB;        // 8bit 0-255
+	uint8_t frequencyMSB;        // 3bit 0-7
+	uint8_t frequencyOctave;     // 3bit 0-7
+	uint8_t feedback;            // 3bit 0-7
+	uint8_t algorithm;           // 3bit 0-7
+	Op ops[4];
+} Channel;
+
+Channel channel1 = {
+	.frequencyLSB = 105,
+	.frequencyMSB = 2,
+	.frequencyOctave = 4,
+	.feedback = 6,
+	.algorithm = 2,
+	.ops = {
+		{
+			.totalLevel = 0,
+			.detune = 0,
+			.multiply = 1,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 10,
+			.rateScaling = 2,
+			.attackRate = 20,
+			.decayRate1 = 7,
+			.decayRate2 = 2,
+			.releaseRate = 6,
+		},
+		{
+			.totalLevel = 95,
+			.detune = 2,
+			.multiply = 3,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 0,
+			.rateScaling = 0,
+			.attackRate = 5,
+			.decayRate1 = 2,
+			.decayRate2 = 17,
+			.releaseRate = 0,
+		},
+		{
+			.totalLevel = 127,
+			.detune = 2,
+			.multiply = 13,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 0,
+			.rateScaling = 0,
+			.attackRate = 5,
+			.decayRate1 = 2,
+			.decayRate2 = 17,
+			.releaseRate = 0,
+		},
+		{
+			.totalLevel = 95,
+			.detune = 2,
+			.multiply = 6,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 0,
+			.rateScaling = 0,
+			.attackRate = 5,
+			.decayRate1 = 2,
+			.decayRate2 = 17,
+			.releaseRate = 0,
+		},
+	}
+};
+
 static void write_ym(uint8_t data) {
 	// open the data bus and pass the data
 	YM_CTRL_PORT &= ~_BV(YM_CS); // CS LOW (sets data bus impedances low)
@@ -83,50 +163,75 @@ void setup() {
 void loop() {
 	/* === YM2612 Test code === */ 
 	setreg(0x22, 0x00); // LFO off
+
 	setreg(0x27, 0x00); // Note off (channel 0)
 	setreg(0x28, 0x01); // Note off (channel 1)
 	setreg(0x28, 0x02); // Note off (channel 2)
 	setreg(0x28, 0x04); // Note off (channel 3)
 	setreg(0x28, 0x05); // Note off (channel 4)
 	setreg(0x28, 0x06); // Note off (channel 5)
-	setreg(0x2B, 0x00); // DAC off
-	setreg(0x30, 0x71); //
-	setreg(0x34, 0x0D); //
-	setreg(0x38, 0x33); //
-	setreg(0x3C, 0x01); // DT1/MUL
-	setreg(0x40, 0x23); //
-	setreg(0x44, 0x2D); //
-	setreg(0x48, 0x26); //
-	setreg(0x4C, 0x00); // Total level
-	setreg(0x50, 0x5F); //
-	setreg(0x54, 0x99); //
-	setreg(0x58, 0x5F); //
-	setreg(0x5C, 0x94); // RS/AR 
-	setreg(0x60, 0x05); //
-	setreg(0x64, 0x05); //
-	setreg(0x68, 0x05); //
-	setreg(0x6C, 0x07); // AM/D1R
-	setreg(0x70, 0x02); //
-	setreg(0x74, 0x02); //
-	setreg(0x78, 0x02); //
-	setreg(0x7C, 0x02); // D2R
-	setreg(0x80, 0x11); //
-	setreg(0x84, 0x11); //
-	setreg(0x88, 0x11); //
-	setreg(0x8C, 0xA6); // D1L/RR
-	setreg(0x90, 0x00); //
-	setreg(0x94, 0x00); //
-	setreg(0x98, 0x00); //
-	setreg(0x9C, 0x00); // Proprietary
-	setreg(0xB0, 0x32); // Feedback/algorithm
-	setreg(0xB4, 0xC0); // Both speakers on
-	setreg(0x28, 0x00); // Key off
-	setreg(0xA4, 0x22); // 
-	setreg(0xA0, 85); // Set frequency
+
+	// DAC off
+	setreg(0x2B, 0x00);
+	setreg(0x30, 0x71);
+	setreg(0x34, 0x0D);
+	setreg(0x38, 0x33);
+
+	// Feedback & algorithm
+	setreg(0xB0, (channel1.feedback << 3) | channel1.algorithm);
+
+	// Detune & multiply
+	setreg(0x3C, (channel1.ops[0].detune << 4) | channel1.ops[0].multiply);
+	setreg(0x40, (channel1.ops[1].detune << 4) | channel1.ops[1].multiply);
+	setreg(0x44, (channel1.ops[2].detune << 4) | channel1.ops[2].multiply);
+	setreg(0x48, (channel1.ops[3].detune << 4) | channel1.ops[3].multiply);
+
+	// Total level
+	setreg(0x4C, channel1.ops[0].totalLevel);
+	setreg(0x50, channel1.ops[1].totalLevel);
+	setreg(0x54, channel1.ops[2].totalLevel);
+	setreg(0x58, channel1.ops[3].totalLevel);
+
+	// Rate scaling & attack rate
+	setreg(0x5C, (channel1.ops[0].rateScaling << 6) | channel1.ops[0].attackRate);
+	setreg(0x60, (channel1.ops[1].rateScaling << 6) | channel1.ops[1].attackRate);
+	setreg(0x64, (channel1.ops[2].rateScaling << 6) | channel1.ops[2].attackRate);
+	setreg(0x68, (channel1.ops[3].rateScaling << 6) | channel1.ops[3].attackRate);
+
+	// Amplitude modulation & 1st decay rate
+	setreg(0x6C, (channel1.ops[0].amplitudeModulation << 7) | channel1.ops[0].decayRate1);
+	setreg(0x70, (channel1.ops[1].amplitudeModulation << 7) | channel1.ops[1].decayRate1);
+	setreg(0x74, (channel1.ops[2].amplitudeModulation << 7) | channel1.ops[2].decayRate1);
+	setreg(0x78, (channel1.ops[3].amplitudeModulation << 7) | channel1.ops[3].decayRate1);
+
+	// 2nd decay rate
+	setreg(0x7C, channel1.ops[0].decayRate2);
+	setreg(0x80, channel1.ops[1].decayRate2);
+	setreg(0x84, channel1.ops[2].decayRate2);
+	setreg(0x88, channel1.ops[3].decayRate2);
+
+	// Secondary amplitude & release rate
+	setreg(0x8C, (channel1.ops[0].secondaryAmplitude << 4) | channel1.ops[0].releaseRate);
+	setreg(0x90, (channel1.ops[1].secondaryAmplitude << 4) | channel1.ops[1].releaseRate);
+	setreg(0x94, (channel1.ops[2].secondaryAmplitude << 4) | channel1.ops[2].releaseRate);
+	setreg(0x98, (channel1.ops[3].secondaryAmplitude << 4) | channel1.ops[3].releaseRate);
+
+	// Proprietary
+	setreg(0x9C, 0x00);
+
+	// Both speakers on
+	setreg(0xB4, 0xC0);
+
+	// Key off
+	setreg(0x28, 0x00);
+
+	// Set frequency
+	setreg(0xA4, (channel1.frequencyOctave << 3) | channel1.frequencyMSB);
+	setreg(0xA0, channel1.frequencyLSB);
 
 	while (true) {
 		// cycle tone on/off
-		_delay_ms(1000);
+		_delay_ms(200);
 		setreg(0x28, 0xF0); // Key on
 		_delay_ms(1000);
 		setreg(0x28, 0x00); // Key off
