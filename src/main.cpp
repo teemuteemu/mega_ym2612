@@ -7,12 +7,12 @@
 // YM2612 Control Pins (ATmega Port A) 
 #define YM_CTRL_DDR DDRC
 #define YM_CTRL_PORT PORTC
-#define YM_IC (5) // PC0 pin 37 for Arduino Mega
-#define YM_CS (4) // PC1 pin 36 for Arduino Mega
-#define YM_WR (3) // PC2 pin 35 for Arduino Mega
-#define YM_RD (2) // PC3 pin 34 for Arduino Mega
-#define YM_A0 (1) // PC4 pin 33 for Arduino Mega
-#define YM_A1 (0) // PC5 pin 32 for Arduino Mega
+#define YM_A1 (0) // PC0 pin 37 for Arduino Mega
+#define YM_A0 (1) // PC1 pin 36 for Arduino Mega
+#define YM_RD (2) // PC2 pin 35 for Arduino Mega
+#define YM_WR (3) // PC3 pin 34 for Arduino Mega
+#define YM_CS (4) // PC4 pin 33 for Arduino Mega
+#define YM_IC (5) // PC5 pin 32 for Arduino Mega
 
 // YM2612 Data Pins (ATmega Port C)
 #define YM_DATA_DDR DDRA
