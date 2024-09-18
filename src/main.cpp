@@ -56,6 +56,42 @@ Channel channel1 = {
 	.algorithm = 2,
 	.ops = {
 		{
+			.totalLevel = 35,
+			.detune = 7,
+			.multiply = 1,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 1,
+			.rateScaling = 2,
+			.attackRate = 31,
+			.decayRate1 = 5,
+			.decayRate2 = 2,
+			.releaseRate = 1,
+		},
+		{
+			.totalLevel = 45,
+			.detune = 0,
+			.multiply = 13,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 1,
+			.rateScaling = 2,
+			.attackRate = 25,
+			.decayRate1 = 5,
+			.decayRate2 = 2,
+			.releaseRate = 1,
+		},
+		{
+			.totalLevel = 38,
+			.detune = 3,
+			.multiply = 3,
+			.amplitudeModulation = 0,
+			.secondaryAmplitude = 1,
+			.rateScaling = 1,
+			.attackRate = 31,
+			.decayRate1 = 5,
+			.decayRate2 = 2,
+			.releaseRate = 1,
+		},
+		{
 			.totalLevel = 0,
 			.detune = 0,
 			.multiply = 1,
@@ -66,42 +102,6 @@ Channel channel1 = {
 			.decayRate1 = 7,
 			.decayRate2 = 2,
 			.releaseRate = 6,
-		},
-		{
-			.totalLevel = 95,
-			.detune = 2,
-			.multiply = 3,
-			.amplitudeModulation = 0,
-			.secondaryAmplitude = 0,
-			.rateScaling = 0,
-			.attackRate = 5,
-			.decayRate1 = 2,
-			.decayRate2 = 17,
-			.releaseRate = 0,
-		},
-		{
-			.totalLevel = 127,
-			.detune = 2,
-			.multiply = 13,
-			.amplitudeModulation = 0,
-			.secondaryAmplitude = 0,
-			.rateScaling = 0,
-			.attackRate = 5,
-			.decayRate1 = 2,
-			.decayRate2 = 17,
-			.releaseRate = 0,
-		},
-		{
-			.totalLevel = 95,
-			.detune = 2,
-			.multiply = 6,
-			.amplitudeModulation = 0,
-			.secondaryAmplitude = 0,
-			.rateScaling = 0,
-			.attackRate = 5,
-			.decayRate1 = 2,
-			.decayRate2 = 17,
-			.releaseRate = 0,
 		},
 	}
 };
@@ -173,50 +173,52 @@ void loop() {
 
 	// DAC off
 	setreg(0x2B, 0x00);
-	setreg(0x30, 0x71);
-	setreg(0x34, 0x0D);
-	setreg(0x38, 0x33);
 
 	// Feedback & algorithm
 	setreg(0xB0, (channel1.feedback << 3) | channel1.algorithm);
 
 	// Detune & multiply
-	setreg(0x3C, (channel1.ops[0].detune << 4) | channel1.ops[0].multiply);
-	setreg(0x40, (channel1.ops[1].detune << 4) | channel1.ops[1].multiply);
-	setreg(0x44, (channel1.ops[2].detune << 4) | channel1.ops[2].multiply);
-	setreg(0x48, (channel1.ops[3].detune << 4) | channel1.ops[3].multiply);
+	setreg(0x30, (channel1.ops[0].detune << 4) | channel1.ops[0].multiply);
+	setreg(0x34, (channel1.ops[1].detune << 4) | channel1.ops[1].multiply);
+	setreg(0x38, (channel1.ops[2].detune << 4) | channel1.ops[2].multiply);
+	setreg(0x3C, (channel1.ops[3].detune << 4) | channel1.ops[3].multiply);
+
 
 	// Total level
-	setreg(0x4C, channel1.ops[0].totalLevel);
-	setreg(0x50, channel1.ops[1].totalLevel);
-	setreg(0x54, channel1.ops[2].totalLevel);
-	setreg(0x58, channel1.ops[3].totalLevel);
+	setreg(0x40, channel1.ops[0].totalLevel);
+	setreg(0x44, channel1.ops[1].totalLevel);
+	setreg(0x48, channel1.ops[2].totalLevel);
+	setreg(0x4C, channel1.ops[3].totalLevel);
+
 
 	// Rate scaling & attack rate
-	setreg(0x5C, (channel1.ops[0].rateScaling << 6) | channel1.ops[0].attackRate);
-	setreg(0x60, (channel1.ops[1].rateScaling << 6) | channel1.ops[1].attackRate);
-	setreg(0x64, (channel1.ops[2].rateScaling << 6) | channel1.ops[2].attackRate);
-	setreg(0x68, (channel1.ops[3].rateScaling << 6) | channel1.ops[3].attackRate);
+	setreg(0x50, (channel1.ops[0].rateScaling << 6) | channel1.ops[0].attackRate);
+	setreg(0x54, (channel1.ops[1].rateScaling << 6) | channel1.ops[1].attackRate);
+	setreg(0x58, (channel1.ops[2].rateScaling << 6) | channel1.ops[2].attackRate);
+	setreg(0x5C, (channel1.ops[3].rateScaling << 6) | channel1.ops[3].attackRate);
 
 	// Amplitude modulation & 1st decay rate
-	setreg(0x6C, (channel1.ops[0].amplitudeModulation << 7) | channel1.ops[0].decayRate1);
-	setreg(0x70, (channel1.ops[1].amplitudeModulation << 7) | channel1.ops[1].decayRate1);
-	setreg(0x74, (channel1.ops[2].amplitudeModulation << 7) | channel1.ops[2].decayRate1);
-	setreg(0x78, (channel1.ops[3].amplitudeModulation << 7) | channel1.ops[3].decayRate1);
+	setreg(0x60, (channel1.ops[0].amplitudeModulation << 7) | channel1.ops[0].decayRate1);
+	setreg(0x64, (channel1.ops[1].amplitudeModulation << 7) | channel1.ops[1].decayRate1);
+	setreg(0x68, (channel1.ops[2].amplitudeModulation << 7) | channel1.ops[2].decayRate1);
+	setreg(0x6C, (channel1.ops[3].amplitudeModulation << 7) | channel1.ops[3].decayRate1);
 
 	// 2nd decay rate
-	setreg(0x7C, channel1.ops[0].decayRate2);
-	setreg(0x80, channel1.ops[1].decayRate2);
-	setreg(0x84, channel1.ops[2].decayRate2);
-	setreg(0x88, channel1.ops[3].decayRate2);
+	setreg(0x70, channel1.ops[0].decayRate2);
+	setreg(0x74, channel1.ops[1].decayRate2);
+	setreg(0x78, channel1.ops[2].decayRate2);
+	setreg(0x7C, channel1.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setreg(0x8C, (channel1.ops[0].secondaryAmplitude << 4) | channel1.ops[0].releaseRate);
-	setreg(0x90, (channel1.ops[1].secondaryAmplitude << 4) | channel1.ops[1].releaseRate);
-	setreg(0x94, (channel1.ops[2].secondaryAmplitude << 4) | channel1.ops[2].releaseRate);
-	setreg(0x98, (channel1.ops[3].secondaryAmplitude << 4) | channel1.ops[3].releaseRate);
+	setreg(0x80, (channel1.ops[0].secondaryAmplitude << 4) | channel1.ops[0].releaseRate);
+	setreg(0x84, (channel1.ops[1].secondaryAmplitude << 4) | channel1.ops[1].releaseRate);
+	setreg(0x88, (channel1.ops[2].secondaryAmplitude << 4) | channel1.ops[2].releaseRate);
+	setreg(0x8C, (channel1.ops[3].secondaryAmplitude << 4) | channel1.ops[3].releaseRate);
 
 	// Proprietary
+	setreg(0x90, 0x00);
+	setreg(0x94, 0x00);
+	setreg(0x98, 0x00);
 	setreg(0x9C, 0x00);
 
 	// Both speakers on
