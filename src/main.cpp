@@ -45,6 +45,8 @@ typedef struct {
 	uint8_t frequencyOctave;     // 3bit 0-7
 	uint8_t feedback;            // 3bit 0-7
 	uint8_t algorithm;           // 3bit 0-7
+	uint8_t lfoEnabled;          // 1bit 0-1
+	uint8_t lfoFrequency;        // 3bit 0-7
 	Op ops[4];
 } Channel;
 
@@ -54,6 +56,8 @@ Channel channel1 = {
 	.frequencyOctave = 4,
 	.feedback = 6,
 	.algorithm = 2,
+	.lfoEnabled = 0,
+	.lfoFrequency = 0,
 	.ops = {
 		{
 			.totalLevel = 35,
@@ -162,7 +166,8 @@ void setup() {
 
 void loop() {
 	/* === YM2612 Test code === */ 
-	setreg(0x22, 0x00); // LFO off
+	// LFO
+	setreg(0x22, (channel1.lfoEnabled << 3) | channel1.lfoFrequency);
 
 	setreg(0x27, 0x00); // Note off (channel 0)
 	setreg(0x28, 0x01); // Note off (channel 1)
