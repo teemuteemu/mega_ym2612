@@ -9,7 +9,7 @@ YM2612 ym2612 = {
 	.lfoFrequency = 0,
 	.channels = {
 		{
-			.frequencyLSB = 105,
+			.frequencyLSB = 34,
 			.frequencyMSB = 2,
 			.frequencyOctave = 4,
 			.feedback = 6,
@@ -164,8 +164,8 @@ void loop() {
 	setreg(YM_REG_KEY_ON_OFF, 0x00);
 
 	// Set frequency
-	setreg(YM_REG_CH1_FREQ_LSB, ym2612.channels[0].frequencyLSB);
 	setreg(YM_REG_CH1_FREQ_MSB, (ym2612.channels[0].frequencyOctave << 3) | ym2612.channels[0].frequencyMSB);
+	setreg(YM_REG_CH1_FREQ_LSB, ym2612.channels[0].frequencyLSB);
 
 	while (true) {
 		// cycle tone on/off

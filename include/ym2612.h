@@ -126,8 +126,17 @@
 #define YM_REG_CH4_PROPR4 (0x9F)
 
 #define YM_REG_CH1_FREQ_LSB (0xA0)
+#define YM_REG_CH2_FREQ_LSB (0xA1)
+#define YM_REG_CH3_FREQ_LSB (0xA2)
+#define YM_REG_CH4_FREQ_LSB (0xA3)
 #define YM_REG_CH1_FREQ_MSB (0xA4)
+#define YM_REG_CH2_FREQ_MSB (0xA5)
+#define YM_REG_CH3_FREQ_MSB (0xA6)
+#define YM_REG_CH4_FREQ_MSB (0xA7)
 #define YM_REG_CH1_FB_ALG (0xB0)
+#define YM_REG_CH2_FB_ALG (0xB1)
+#define YM_REG_CH3_FB_ALG (0xB2)
+#define YM_REG_CH4_FB_ALG (0xB3)
 
 typedef struct {
 	uint8_t totalLevel;          // 7bit 0-127
