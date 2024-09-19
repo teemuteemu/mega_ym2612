@@ -11,7 +11,64 @@ YM2612 ym2612 = {
 		{
 			.frequencyLSB = 34,
 			.frequencyMSB = 2,
-			.frequencyOctave = 4,
+			.frequencyOctave = 2,
+			.feedback = 6,
+			.algorithm = 2,
+			.ops = {
+				{
+					.totalLevel = 35,
+					.detune = 7,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 45,
+					.detune = 0,
+					.multiply = 13,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 25,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 38,
+					.detune = 3,
+					.multiply = 3,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 1,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 0,
+					.detune = 0,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 10,
+					.rateScaling = 2,
+					.attackRate = 20,
+					.decayRate1 = 7,
+					.decayRate2 = 2,
+					.releaseRate = 6,
+				},
+			},
+		},
+		{
+			.frequencyLSB = 34,
+			.frequencyMSB = 2,
+			.frequencyOctave = 3,
 			.feedback = 6,
 			.algorithm = 2,
 			.ops = {
@@ -69,56 +126,56 @@ YM2612 ym2612 = {
 			.frequencyLSB = 34,
 			.frequencyMSB = 2,
 			.frequencyOctave = 4,
-			.feedback = 1,
+			.feedback = 6,
 			.algorithm = 2,
 			.ops = {
 				{
-					.totalLevel = 38,
-					.detune = 2,
+					.totalLevel = 35,
+					.detune = 7,
 					.multiply = 1,
 					.amplitudeModulation = 0,
-					.secondaryAmplitude = 0,
-					.rateScaling = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
 					.attackRate = 31,
-					.decayRate1 = 31,
-					.decayRate2 = 24,
-					.releaseRate = 13,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
 				},
 				{
-					.totalLevel = 36,
+					.totalLevel = 45,
 					.detune = 0,
-					.multiply = 2,
+					.multiply = 13,
 					.amplitudeModulation = 0,
-					.secondaryAmplitude = 15,
-					.rateScaling = 0,
-					.attackRate = 27,
-					.decayRate1 = 26,
-					.decayRate2 = 13,
-					.releaseRate = 15,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 25,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
 				},
 				{
-					.totalLevel = 67,
-					.detune = 1,
-					.multiply = 1,
+					.totalLevel = 38,
+					.detune = 3,
+					.multiply = 3,
 					.amplitudeModulation = 0,
-					.secondaryAmplitude = 15,
-					.rateScaling = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 1,
 					.attackRate = 31,
-					.decayRate1 = 23,
-					.decayRate2 = 21,
-					.releaseRate = 12,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
 				},
 				{
 					.totalLevel = 0,
 					.detune = 0,
-					.multiply = 0,
+					.multiply = 1,
 					.amplitudeModulation = 0,
-					.secondaryAmplitude = 15,
-					.rateScaling = 0,
-					.attackRate = 31,
-					.decayRate1 = 16,
-					.decayRate2 = 0,
-					.releaseRate = 15,
+					.secondaryAmplitude = 10,
+					.rateScaling = 2,
+					.attackRate = 20,
+					.decayRate1 = 7,
+					.decayRate2 = 2,
+					.releaseRate = 6,
 				},
 			},
 		},
@@ -169,7 +226,9 @@ void loop() {
 	setReg(YM_REG_KEY_ON_OFF, 0x05); // Note off (channel 4)
 	setReg(YM_REG_KEY_ON_OFF, 0x06); // Note off (channel 5)
 
-	initChannel(ym2612.channels[0]);
+	initChannel1(ym2612.channels[0]);
+	initChannel2(ym2612.channels[1]);
+	initChannel3(ym2612.channels[2]);
 
 	// Both speakers on
 	setReg(0xB4, 0xC0);
@@ -177,14 +236,18 @@ void loop() {
 	// Key off
 	setReg(YM_REG_KEY_ON_OFF, 0x00);
 	setReg(YM_REG_KEY_ON_OFF, 0x01);
+	setReg(YM_REG_KEY_ON_OFF, 0x02);
 
 	while (true) {
 		// cycle tone on/off
+		_delay_ms(200);
+		setReg(YM_REG_KEY_ON_OFF, 0xF2); // Key on
 		_delay_ms(200);
 		setReg(YM_REG_KEY_ON_OFF, 0xF1); // Key on
 		_delay_ms(200);
 		setReg(YM_REG_KEY_ON_OFF, 0xF0); // Key on
 		_delay_ms(1000);
+		setReg(YM_REG_KEY_ON_OFF, 0x02); // Key off
 		setReg(YM_REG_KEY_ON_OFF, 0x01); // Key off
 		setReg(YM_REG_KEY_ON_OFF, 0x00); // Key off
 	}

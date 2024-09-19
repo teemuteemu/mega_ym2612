@@ -7,7 +7,7 @@
 #define YM_REG_DAC (0x2B)
 
 // Macro to generate full register names based on the register name and channel number
-#define YM_REG(reg, ch) reg##_CH##ch
+#define YM_REG_CH(reg, ch) reg##_CH##ch
 
 #define DET_MUL_OP1_CH1 (0x30)
 #define DET_MUL_OP1_CH2 (0x31)
@@ -171,4 +171,9 @@ typedef struct {
 } YM2612;
 
 void setReg(uint8_t reg, uint8_t data);
-void initChannel(Channel channel);
+void initChannel1(Channel channel);
+void initChannel2(Channel channel);
+void initChannel3(Channel channel);
+void initChannel4(Channel channel);
+void initChannel5(Channel channel);
+void initChannel6(Channel channel);
