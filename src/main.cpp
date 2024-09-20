@@ -8,6 +8,65 @@ YM2612 ym2612 = {
 	.lfoEnabled = 0,
 	.lfoFrequency = 0,
 	.channels = {
+		// channel 1:
+		{
+			.frequencyLSB = 34,
+			.frequencyMSB = 2,
+			.frequencyOctave = 1,
+			.feedback = 6,
+			.algorithm = 2,
+			.ops = {
+				{
+					.totalLevel = 35,
+					.detune = 7,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 45,
+					.detune = 0,
+					.multiply = 13,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 25,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 38,
+					.detune = 3,
+					.multiply = 3,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 1,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 0,
+					.detune = 0,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 10,
+					.rateScaling = 2,
+					.attackRate = 20,
+					.decayRate1 = 7,
+					.decayRate2 = 2,
+					.releaseRate = 6,
+				},
+			},
+		},
+		// channel 2:
 		{
 			.frequencyLSB = 34,
 			.frequencyMSB = 2,
@@ -65,6 +124,7 @@ YM2612 ym2612 = {
 				},
 			},
 		},
+		// channel 3:
 		{
 			.frequencyLSB = 34,
 			.frequencyMSB = 2,
@@ -122,10 +182,127 @@ YM2612 ym2612 = {
 				},
 			},
 		},
+		// channel 4:
 		{
 			.frequencyLSB = 34,
 			.frequencyMSB = 2,
 			.frequencyOctave = 4,
+			.feedback = 6,
+			.algorithm = 2,
+			.ops = {
+				{
+					.totalLevel = 35,
+					.detune = 7,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 45,
+					.detune = 0,
+					.multiply = 13,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 25,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 38,
+					.detune = 3,
+					.multiply = 3,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 1,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 0,
+					.detune = 0,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 10,
+					.rateScaling = 2,
+					.attackRate = 20,
+					.decayRate1 = 7,
+					.decayRate2 = 2,
+					.releaseRate = 6,
+				},
+			},
+		},
+		// channel 5:
+		{
+			.frequencyLSB = 34,
+			.frequencyMSB = 2,
+			.frequencyOctave = 5,
+			.feedback = 6,
+			.algorithm = 2,
+			.ops = {
+				{
+					.totalLevel = 35,
+					.detune = 7,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 45,
+					.detune = 0,
+					.multiply = 13,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 2,
+					.attackRate = 25,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 38,
+					.detune = 3,
+					.multiply = 3,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 1,
+					.rateScaling = 1,
+					.attackRate = 31,
+					.decayRate1 = 5,
+					.decayRate2 = 2,
+					.releaseRate = 1,
+				},
+				{
+					.totalLevel = 0,
+					.detune = 0,
+					.multiply = 1,
+					.amplitudeModulation = 0,
+					.secondaryAmplitude = 10,
+					.rateScaling = 2,
+					.attackRate = 20,
+					.decayRate1 = 7,
+					.decayRate2 = 2,
+					.releaseRate = 6,
+				},
+			},
+		},
+		// channel 6:
+		{
+			.frequencyLSB = 34,
+			.frequencyMSB = 2,
+			.frequencyOctave = 6,
 			.feedback = 6,
 			.algorithm = 2,
 			.ops = {
@@ -211,7 +388,6 @@ void setup() {
 
 
 void loop() {
-	/* === YM2612 Test code === */ 
 	// LFO
 	setReg(YM_REG_LFO, (ym2612.lfoEnabled << 3) | ym2612.lfoFrequency);
 
@@ -222,34 +398,42 @@ void loop() {
 	setReg(YM_REG_KEY_ON_OFF, 0x00); // Note off (channel 0)
 	setReg(YM_REG_KEY_ON_OFF, 0x01); // Note off (channel 1)
 	setReg(YM_REG_KEY_ON_OFF, 0x02); // Note off (channel 2)
-	setReg(YM_REG_KEY_ON_OFF, 0x04); // Note off (channel 3)
-	setReg(YM_REG_KEY_ON_OFF, 0x05); // Note off (channel 4)
-	setReg(YM_REG_KEY_ON_OFF, 0x06); // Note off (channel 5)
+	setReg(YM_REG_KEY_ON_OFF, 0x03); // Note off (channel 3)
+	setReg(YM_REG_KEY_ON_OFF, 0x04); // Note off (channel 4)
+	setReg(YM_REG_KEY_ON_OFF, 0x05); // Note off (channel 5)
 
 	initChannel1(ym2612.channels[0]);
 	initChannel2(ym2612.channels[1]);
 	initChannel3(ym2612.channels[2]);
+	initChannel4(ym2612.channels[3]);
+	initChannel5(ym2612.channels[4]);
+	initChannel6(ym2612.channels[5]);
 
 	// Both speakers on
 	setReg(0xB4, 0xC0);
 
-	// Key off
-	setReg(YM_REG_KEY_ON_OFF, 0x00);
-	setReg(YM_REG_KEY_ON_OFF, 0x01);
-	setReg(YM_REG_KEY_ON_OFF, 0x02);
-
 	while (true) {
 		// cycle tone on/off
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF2); // Key on
+		setReg(YM_REG_KEY_ON_OFF, 0xF0); // Key on
 		_delay_ms(200);
 		setReg(YM_REG_KEY_ON_OFF, 0xF1); // Key on
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF0); // Key on
+		setReg(YM_REG_KEY_ON_OFF, 0xF2); // Key on
+		_delay_ms(200);
+		setReg(YM_REG_KEY_ON_OFF, 0xF4); // Key on
+		_delay_ms(200);
+		setReg(YM_REG_KEY_ON_OFF, 0xF5); // Key on
+		_delay_ms(200);
+		setReg(YM_REG_KEY_ON_OFF, 0xF6); // Key on
+
 		_delay_ms(1000);
-		setReg(YM_REG_KEY_ON_OFF, 0x02); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x01); // Key off
 		setReg(YM_REG_KEY_ON_OFF, 0x00); // Key off
+		setReg(YM_REG_KEY_ON_OFF, 0x01); // Key off
+		setReg(YM_REG_KEY_ON_OFF, 0x02); // Key off
+		setReg(YM_REG_KEY_ON_OFF, 0x04); // Key off
+		setReg(YM_REG_KEY_ON_OFF, 0x05); // Key off
+		setReg(YM_REG_KEY_ON_OFF, 0x06); // Key off
 	}
 }
 
