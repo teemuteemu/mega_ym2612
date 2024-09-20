@@ -389,21 +389,21 @@ void setup() {
 
 void loop() {
 	// LFO
-	setReg(YM_REG_LFO, (ym2612.lfoEnabled << 3) | ym2612.lfoFrequency);
+	setRegPt1(YM_REG_LFO, (ym2612.lfoEnabled << 3) | ym2612.lfoFrequency);
 
 	// DAC off
-	setReg(YM_REG_DAC, 0x00);
+	setRegPt1(YM_REG_DAC, 0x00);
 
 	// Software timers
-	setReg(YM_REG_TIMERS, 0x00);
+	setRegPt1(YM_REG_TIMERS, 0x00);
 
 	// All channels off
-	setReg(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
-	setReg(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
-	setReg(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
-	setReg(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
-	setReg(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
-	setReg(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
+	setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
 
 	initChannel1(ym2612.channels[0]);
 	initChannel2(ym2612.channels[1]);
@@ -413,30 +413,30 @@ void loop() {
 	initChannel6(ym2612.channels[5]);
 
 	// Both speakers on
-	setReg(0xB4, 0xC0);
+	setRegPt1(0xB4, 0xC0);
 
 	while (true) {
 		// cycle tone on/off
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
 
 		_delay_ms(1000);
-		setReg(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
-		setReg(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
-		setReg(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
-		setReg(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
-		setReg(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
-		setReg(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
 	}
 }
 

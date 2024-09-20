@@ -183,7 +183,11 @@ typedef struct {
 	Channel channels[6];
 } YM2612;
 
-void setReg(uint8_t reg, uint8_t data);
+// Set register in YM2612 part 1, this is controlled with A0 and A1 pins
+void setRegPt1(uint8_t reg, uint8_t data);
+// Set register in YM2612 part 2
+void setRegPt2(uint8_t reg, uint8_t data);
+
 void initChannel1(Channel channel);
 void initChannel2(Channel channel);
 void initChannel3(Channel channel);
