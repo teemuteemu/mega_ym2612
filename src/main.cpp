@@ -394,13 +394,16 @@ void loop() {
 	// DAC off
 	setReg(YM_REG_DAC, 0x00);
 
-	setReg(YM_REG_TIMERS, 0x00); // Software timers
-	setReg(YM_REG_KEY_ON_OFF, 0x00); // Note off (channel 0)
-	setReg(YM_REG_KEY_ON_OFF, 0x01); // Note off (channel 1)
-	setReg(YM_REG_KEY_ON_OFF, 0x02); // Note off (channel 2)
-	setReg(YM_REG_KEY_ON_OFF, 0x03); // Note off (channel 3)
-	setReg(YM_REG_KEY_ON_OFF, 0x04); // Note off (channel 4)
-	setReg(YM_REG_KEY_ON_OFF, 0x05); // Note off (channel 5)
+	// Software timers
+	setReg(YM_REG_TIMERS, 0x00);
+
+	// All channels off
+	setReg(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+	setReg(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+	setReg(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
+	setReg(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
+	setReg(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
+	setReg(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
 
 	initChannel1(ym2612.channels[0]);
 	initChannel2(ym2612.channels[1]);
@@ -415,25 +418,25 @@ void loop() {
 	while (true) {
 		// cycle tone on/off
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF0); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF1); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF2); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF4); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF5); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
 		_delay_ms(200);
-		setReg(YM_REG_KEY_ON_OFF, 0xF6); // Key on
+		setReg(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
 
 		_delay_ms(1000);
-		setReg(YM_REG_KEY_ON_OFF, 0x00); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x01); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x02); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x04); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x05); // Key off
-		setReg(YM_REG_KEY_ON_OFF, 0x06); // Key off
+		setReg(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+		setReg(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+		setReg(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
+		setReg(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
+		setReg(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
+		setReg(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
 	}
 }
 

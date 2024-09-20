@@ -142,6 +142,19 @@
 #define FB_ALG_CH3 (0xB2)
 #define FB_ALG_CH4 (0xB3)
 
+#define CH1_KEY_ON (0xF0)
+#define CH2_KEY_ON (0xF1)
+#define CH3_KEY_ON (0xF2)
+#define CH4_KEY_ON (0xF4)
+#define CH5_KEY_ON (0xF5)
+#define CH6_KEY_ON (0xF6)
+#define CH1_KEY_OFF (0x00)
+#define CH2_KEY_OFF (0x01)
+#define CH3_KEY_OFF (0x02)
+#define CH4_KEY_OFF (0x04)
+#define CH5_KEY_OFF (0x05)
+#define CH6_KEY_OFF (0x06)
+
 typedef struct {
 	uint8_t totalLevel;          // 7bit 0-127
 	uint8_t detune;              // 3bit 0-7
