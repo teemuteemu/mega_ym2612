@@ -91,8 +91,8 @@ void initChannel1(Channel channel) {
 	setRegPt1(YM_REG_CH(PROPR4, 1), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt1(YM_REG_CH(FREQ_MSB, 1), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt1(YM_REG_CH(FREQ_LSB, 1), channel.frequencyLSB);
+	setRegPt1(YM_REG_CH(FREQ_MSB, 1), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt1(YM_REG_CH(FREQ_LSB, 1), (channel.frequency & 0xFF));
 }
 
 void initChannel2(Channel channel) {
@@ -142,8 +142,8 @@ void initChannel2(Channel channel) {
 	setRegPt1(YM_REG_CH(PROPR4, 2), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt1(YM_REG_CH(FREQ_MSB, 2), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt1(YM_REG_CH(FREQ_LSB, 2), channel.frequencyLSB);
+	setRegPt1(YM_REG_CH(FREQ_MSB, 2), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt1(YM_REG_CH(FREQ_LSB, 2), (channel.frequency & 0xFF));
 }
 
 void initChannel3(Channel channel) {
@@ -193,8 +193,8 @@ void initChannel3(Channel channel) {
 	setRegPt1(YM_REG_CH(PROPR4, 3), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt1(YM_REG_CH(FREQ_MSB, 3), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt1(YM_REG_CH(FREQ_LSB, 3), channel.frequencyLSB);
+	setRegPt1(YM_REG_CH(FREQ_MSB, 3), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt1(YM_REG_CH(FREQ_LSB, 3), (channel.frequency & 0xFF));
 }
 
 void initChannel4(Channel channel) {
@@ -244,8 +244,8 @@ void initChannel4(Channel channel) {
 	setRegPt2(YM_REG_CH(PROPR4, 1), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt2(YM_REG_CH(FREQ_MSB, 1), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt2(YM_REG_CH(FREQ_LSB, 1), channel.frequencyLSB);
+	setRegPt2(YM_REG_CH(FREQ_MSB, 1), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt2(YM_REG_CH(FREQ_LSB, 1), (channel.frequency & 0xFF));
 }
 
 void initChannel5(Channel channel) {
@@ -295,8 +295,8 @@ void initChannel5(Channel channel) {
 	setRegPt2(YM_REG_CH(PROPR4, 2), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt2(YM_REG_CH(FREQ_MSB, 2), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt2(YM_REG_CH(FREQ_LSB, 2), channel.frequencyLSB);
+	setRegPt2(YM_REG_CH(FREQ_MSB, 2), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt2(YM_REG_CH(FREQ_LSB, 2), (channel.frequency & 0xFF));
 }
 
 void initChannel6(Channel channel) {
@@ -346,6 +346,6 @@ void initChannel6(Channel channel) {
 	setRegPt2(YM_REG_CH(PROPR4, 3), 0x00);
 
 	// Set frequency. Important: set MSB first
-	setRegPt2(YM_REG_CH(FREQ_MSB, 3), (channel.frequencyOctave << 3) | channel.frequencyMSB);
-	setRegPt2(YM_REG_CH(FREQ_LSB, 3), channel.frequencyLSB);
+	setRegPt2(YM_REG_CH(FREQ_MSB, 3), ((channel.frequencyOctave << 3) | (channel.frequency >> 8)));
+	setRegPt2(YM_REG_CH(FREQ_LSB, 3), (channel.frequency & 0xFF));
 }

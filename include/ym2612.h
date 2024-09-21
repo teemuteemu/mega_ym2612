@@ -169,8 +169,7 @@ typedef struct {
 } Op;
 
 typedef struct {
-	uint8_t frequencyLSB;        // 8bit 0-255
-	uint8_t frequencyMSB;        // 3bit 0-7
+	uint16_t frequency;          // 11bit 0-2047
 	uint8_t frequencyOctave;     // 3bit 0-7
 	uint8_t feedback;            // 3bit 0-7
 	uint8_t algorithm;           // 3bit 0-7

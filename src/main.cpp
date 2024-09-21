@@ -10,8 +10,7 @@ YM2612 ym2612 = {
 	.channels = {
 		// channel 1:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546, // => LSB = 546 & 0xFF = 0x22, MSB = 546 >> 8 = 0x02
 			.frequencyOctave = 1,
 			.feedback = 6,
 			.algorithm = 2,
@@ -68,8 +67,7 @@ YM2612 ym2612 = {
 		},
 		// channel 2:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546,
 			.frequencyOctave = 2,
 			.feedback = 6,
 			.algorithm = 2,
@@ -126,8 +124,7 @@ YM2612 ym2612 = {
 		},
 		// channel 3:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546,
 			.frequencyOctave = 3,
 			.feedback = 6,
 			.algorithm = 2,
@@ -184,8 +181,7 @@ YM2612 ym2612 = {
 		},
 		// channel 4:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546,
 			.frequencyOctave = 4,
 			.feedback = 6,
 			.algorithm = 2,
@@ -242,8 +238,7 @@ YM2612 ym2612 = {
 		},
 		// channel 5:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546,
 			.frequencyOctave = 5,
 			.feedback = 6,
 			.algorithm = 2,
@@ -300,8 +295,7 @@ YM2612 ym2612 = {
 		},
 		// channel 6:
 		{
-			.frequencyLSB = 34,
-			.frequencyMSB = 2,
+			.frequency = 546,
 			.frequencyOctave = 6,
 			.feedback = 6,
 			.algorithm = 2,
