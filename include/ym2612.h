@@ -160,10 +160,10 @@ typedef struct {
 	uint8_t detune;              // 3bit 0-7
 	uint8_t multiply;            // 4bit 0-15
 	uint8_t amplitudeModulation; // 1bit 0-1
-	uint8_t secondaryAmplitude;  // 4bit 0-15
 	uint8_t rateScaling;         // 2bit 0-3
 	uint8_t attackRate;          // 5bit 0-31
 	uint8_t decayRate1;          // 5bit 0-31
+	uint8_t sustain;             // 4bit 0-15
 	uint8_t decayRate2;          // 5bit 0-31
 	uint8_t releaseRate;         // 4bit 0-15
 } Op;

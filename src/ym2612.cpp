@@ -79,10 +79,10 @@ void initChannel1(Channel channel) {
 	setRegPt1(YM_REG_CH(DR2_OP4, 1), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt1(YM_REG_CH(SL_RR_OP1, 1), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP2, 1), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP3, 1), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP4, 1), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP1, 1), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP2, 1), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP3, 1), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP4, 1), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt1(YM_REG_CH(PROPR1, 1), 0x00);
@@ -130,10 +130,10 @@ void initChannel2(Channel channel) {
 	setRegPt1(YM_REG_CH(DR2_OP4, 2), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt1(YM_REG_CH(SL_RR_OP1, 2), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP2, 2), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP3, 2), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP4, 2), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP1, 2), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP2, 2), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP3, 2), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP4, 2), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt1(YM_REG_CH(PROPR1, 2), 0x00);
@@ -181,10 +181,10 @@ void initChannel3(Channel channel) {
 	setRegPt1(YM_REG_CH(DR2_OP4, 3), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt1(YM_REG_CH(SL_RR_OP1, 3), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP2, 3), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP3, 3), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt1(YM_REG_CH(SL_RR_OP4, 3), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP1, 3), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP2, 3), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP3, 3), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt1(YM_REG_CH(SL_RR_OP4, 3), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt1(YM_REG_CH(PROPR1, 3), 0x00);
@@ -232,10 +232,10 @@ void initChannel4(Channel channel) {
 	setRegPt2(YM_REG_CH(DR2_OP4, 1), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt2(YM_REG_CH(SL_RR_OP1, 1), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP2, 1), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP3, 1), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP4, 1), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP1, 1), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP2, 1), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP3, 1), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP4, 1), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt2(YM_REG_CH(PROPR1, 1), 0x00);
@@ -283,10 +283,10 @@ void initChannel5(Channel channel) {
 	setRegPt2(YM_REG_CH(DR2_OP4, 2), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt2(YM_REG_CH(SL_RR_OP1, 2), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP2, 2), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP3, 2), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP4, 2), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP1, 2), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP2, 2), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP3, 2), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP4, 2), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt2(YM_REG_CH(PROPR1, 2), 0x00);
@@ -334,10 +334,10 @@ void initChannel6(Channel channel) {
 	setRegPt2(YM_REG_CH(DR2_OP4, 3), channel.ops[3].decayRate2);
 
 	// Secondary amplitude & release rate
-	setRegPt2(YM_REG_CH(SL_RR_OP1, 3), (channel.ops[0].secondaryAmplitude << 4) | channel.ops[0].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP2, 3), (channel.ops[1].secondaryAmplitude << 4) | channel.ops[1].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP3, 3), (channel.ops[2].secondaryAmplitude << 4) | channel.ops[2].releaseRate);
-	setRegPt2(YM_REG_CH(SL_RR_OP4, 3), (channel.ops[3].secondaryAmplitude << 4) | channel.ops[3].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP1, 3), (channel.ops[0].sustain << 4) | channel.ops[0].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP2, 3), (channel.ops[1].sustain << 4) | channel.ops[1].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP3, 3), (channel.ops[2].sustain << 4) | channel.ops[2].releaseRate);
+	setRegPt2(YM_REG_CH(SL_RR_OP4, 3), (channel.ops[3].sustain << 4) | channel.ops[3].releaseRate);
 
 	// Proprietary
 	setRegPt2(YM_REG_CH(PROPR1, 3), 0x00);
