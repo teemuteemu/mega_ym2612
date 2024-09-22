@@ -414,7 +414,9 @@ void loop() {
 
 	while (true) {
 		// cycle tone on/off
-		//setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+
+		/*
 		_delay_ms(200);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
 		_delay_ms(200);
@@ -425,6 +427,7 @@ void loop() {
 		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
 		_delay_ms(200);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
+		*/
 
 		_delay_ms(3000);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
