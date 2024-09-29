@@ -417,6 +417,12 @@ void loop() {
 		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
 		_delay_ms(700);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
+		_delay_ms(900);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+		_delay_ms(500);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
 
 		/*
 		_delay_ms(700);
@@ -429,7 +435,7 @@ void loop() {
 		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
 		*/
 
-		_delay_ms(2000);
+		_delay_ms(700);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
