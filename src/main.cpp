@@ -465,6 +465,23 @@ void loop() {
 	setRegPt1(0xB4, 0xC0);
 
 	while (true) {
+		uint16_t pot0 = analogRead(A0);
+		uint16_t pot1 = analogRead(A1);
+		uint16_t pot2 = analogRead(A2);
+		uint16_t pot3 = analogRead(A3);
+		uint16_t pot4 = analogRead(A4);
+		uint16_t pot5 = analogRead(A5);
+		uint16_t pot6 = analogRead(A6);
+		uint16_t pot7 = analogRead(A7);
+		uint16_t pot8 = analogRead(A8);
+		uint16_t pot9 = analogRead(A9);
+		uint16_t pot10 = analogRead(A10);
+		uint16_t pot11 = analogRead(A11);
+		uint16_t pot12 = analogRead(A12);
+		uint16_t pot13 = analogRead(A13);
+		uint16_t pot14 = analogRead(A14);
+		uint16_t pot15 = analogRead(A15);
+
 		MIDI.read();
 	}
 }
