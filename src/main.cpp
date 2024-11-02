@@ -357,9 +357,54 @@ YM2612 ym2612 = {
 	},
 };
 
+void handleNoteOn(byte inChannel, byte inNote, byte inVelocity) {
+	switch (inNote) {
+		case 60:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+			break;
+		case 61:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
+			break;
+		case 62:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
+			break;
+		case 63:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
+			break;
+		case 64:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
+			break;
+		case 65:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
+			break;
+	}
+}
+
+void handleNoteOff(byte inChannel, byte inNote, byte inVelocity) {
+	switch (inNote) {
+		case 60:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+			break;
+		case 61:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
+			break;
+		case 62:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
+			break;
+		case 63:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
+			break;
+		case 64:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
+			break;
+		case 65:
+			setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
+			break;
+	}
+}
+
 void setup() {
 	Serial.begin(9600);
-	MIDI.begin(1);
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	/* === Pins setup === */
@@ -384,6 +429,10 @@ void setup() {
 	_delay_ms(10);
 	YM_CTRL_PORT |= _BV(YM_IC);
 	_delay_ms(10);
+
+	MIDI.setHandleNoteOn(handleNoteOn);
+	MIDI.setHandleNoteOff(handleNoteOff);
+	MIDI.begin(1);
 }
 
 
@@ -416,41 +465,7 @@ void loop() {
 	setRegPt1(0xB4, 0xC0);
 
 	while (true) {
-		// cycle tone on/off
-		/*
-		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
-		_delay_ms(2000);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
-		_delay_ms(500);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
-		_delay_ms(500);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
-		_delay_ms(500);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
-		_delay_ms(500);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
-		_delay_ms(500);
-
-		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
-		*/
-
-		if (MIDI.read()) {
-			switch(MIDI.getType()) {
-				case midi::NoteOn:
-					setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
-					break;
-				case midi::NoteOff:
-					setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
-					break;
-				default:
-					break;
-			}
-		}
+		MIDI.read();
 	}
 }
 
