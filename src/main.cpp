@@ -6,8 +6,6 @@
 #include "platform.h"
 #include "sound.h"
 
-#define NOTE_C3 (623)
-
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial3, MIDI);
 
 YM2612 ym2612 = {
