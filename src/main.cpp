@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <MIDI.h>
 #include <stdint.h>
 
 #include "ym2612.h"
@@ -6,6 +7,8 @@
 #include "sound.h"
 
 #define NOTE_C3 (623)
+
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial3, MIDI);
 
 YM2612 ym2612 = {
 	.lfoEnabled = 0,
@@ -357,6 +360,8 @@ YM2612 ym2612 = {
 };
 
 void setup() {
+	Serial.begin(9600);
+	MIDI.begin(1);
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	/* === Pins setup === */
@@ -414,34 +419,40 @@ void loop() {
 
 	while (true) {
 		// cycle tone on/off
-		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
-		_delay_ms(700);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
-		_delay_ms(900);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
-		_delay_ms(500);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
-		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
-
 		/*
-		_delay_ms(700);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+		_delay_ms(2000);
+		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_ON);
+		_delay_ms(500);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_ON);
-		_delay_ms(200);
+		_delay_ms(500);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_ON);
-		_delay_ms(200);
+		_delay_ms(500);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_ON);
-		_delay_ms(200);
+		_delay_ms(500);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_ON);
-		*/
+		_delay_ms(500);
 
-		_delay_ms(700);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH2_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH3_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH4_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH5_KEY_OFF);
 		setRegPt1(YM_REG_KEY_ON_OFF, CH6_KEY_OFF);
+		*/
+
+		if (MIDI.read()) {
+			switch(MIDI.getType()) {
+				case midi::NoteOn:
+					setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_ON);
+					break;
+				case midi::NoteOff:
+					setRegPt1(YM_REG_KEY_ON_OFF, CH1_KEY_OFF);
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }
 
