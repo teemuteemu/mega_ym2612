@@ -8,6 +8,24 @@
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial3, MIDI);
 
+uint8_t updateCounter = 0;
+uint8_t tmpTLCH1 = 0;
+uint8_t tmpTLCH2 = 0;
+uint8_t tmpTLCH3 = 0;
+uint8_t tmpTLCH4 = 0;
+uint8_t tmpTLCH5 = 0;
+uint8_t tmpTLCH6 = 0;
+uint8_t tmpDecayCH1 = 0;
+uint8_t tmpDecayCH2 = 0;
+uint8_t tmpDecayCH3 = 0;
+uint8_t tmpDecayCH4 = 0;
+uint8_t tmpDecayCH5 = 0;
+uint8_t tmpDecayCH6 = 0;
+uint16_t tmpPitchCH1 = 0;
+uint16_t tmpPitchCH2 = 0;
+uint16_t tmpPitchCH3 = 0;
+uint16_t tmpPitchCH4 = 0;
+
 YM2612 ym2612 = {
 	.lfoEnabled = 0,
 	.lfoFrequency = 0,
@@ -465,22 +483,100 @@ void loop() {
 	setRegPt1(0xB4, 0xC0);
 
 	while (true) {
-		uint16_t pot0 = analogRead(A0);
-		uint16_t pot1 = analogRead(A1);
-		uint16_t pot2 = analogRead(A2);
-		uint16_t pot3 = analogRead(A3);
-		uint16_t pot4 = analogRead(A4);
-		uint16_t pot5 = analogRead(A5);
-		uint16_t pot6 = analogRead(A6);
-		uint16_t pot7 = analogRead(A7);
-		uint16_t pot8 = analogRead(A8);
-		uint16_t pot9 = analogRead(A9);
-		uint16_t pot10 = analogRead(A10);
-		uint16_t pot11 = analogRead(A11);
-		uint16_t pot12 = analogRead(A12);
-		uint16_t pot13 = analogRead(A13);
-		uint16_t pot14 = analogRead(A14);
-		uint16_t pot15 = analogRead(A15);
+		tmpPitchCH1 = map(analogRead(A0), 0, 1023, 100, 2047);
+		tmpDecayCH1 = map(analogRead(A1), 0, 1023, 20, 0);
+		tmpTLCH1 = map(analogRead(A2), 0, 1023, 32, 0);
+		tmpPitchCH2 = map(analogRead(A3), 0, 1023, 100, 2047);
+		tmpDecayCH2 = map(analogRead(A4), 0, 1023, 20, 0);
+		tmpTLCH2 = map(analogRead(A5), 0, 1023, 64, 0);
+		tmpPitchCH3 = map(analogRead(A6), 0, 1023, 100, 2047);
+		tmpDecayCH3 = map(analogRead(A7), 0, 1023, 20, 14);
+		tmpTLCH3 = map(analogRead(A8), 0, 1023, 64, 0);
+		tmpPitchCH4 = map(analogRead(A9), 0, 1023, 100, 2047);
+		tmpDecayCH4 = map(analogRead(A10), 0, 1023, 20, 8);
+		tmpTLCH4 = map(analogRead(A11), 0, 1023, 32, 0);
+		tmpDecayCH5 = map(analogRead(A12), 0, 1023, 31, 8);
+		tmpTLCH5 = map(analogRead(A13), 0, 1023, 64, 0);
+		tmpDecayCH6 = map(analogRead(A14), 0, 1023, 31, 8);
+		tmpTLCH6 = map(analogRead(A15), 0, 1023, 32, 0);
+
+		if (++updateCounter >= 250) {
+			// Total levels
+			if (ym2612.channels[0].ops[3].totalLevel != tmpTLCH1) {
+				ym2612.channels[0].ops[3].totalLevel = tmpTLCH1;
+				setRegPt1(YM_REG_CH(TL_OP4, 1), ym2612.channels[0].ops[3].totalLevel);
+			}
+			if (ym2612.channels[1].ops[3].totalLevel != tmpTLCH2) {
+				ym2612.channels[1].ops[3].totalLevel = tmpTLCH2;
+				setRegPt1(YM_REG_CH(TL_OP4, 2), ym2612.channels[1].ops[3].totalLevel);
+			}
+			if (ym2612.channels[2].ops[3].totalLevel != tmpTLCH3) {
+				ym2612.channels[2].ops[3].totalLevel = tmpTLCH3;
+				setRegPt1(YM_REG_CH(TL_OP4, 3), ym2612.channels[2].ops[3].totalLevel);
+			}
+			if (ym2612.channels[3].ops[3].totalLevel != tmpTLCH4) {
+				ym2612.channels[3].ops[3].totalLevel = tmpTLCH4;
+				setRegPt2(YM_REG_CH(TL_OP4, 1), ym2612.channels[3].ops[3].totalLevel);
+			}
+			if (ym2612.channels[4].ops[3].totalLevel != tmpTLCH5) {
+				ym2612.channels[4].ops[3].totalLevel = tmpTLCH5;
+				setRegPt2(YM_REG_CH(TL_OP4, 2), ym2612.channels[4].ops[3].totalLevel);
+			}
+			if (ym2612.channels[5].ops[3].totalLevel != tmpTLCH6) {
+				ym2612.channels[5].ops[3].totalLevel = tmpTLCH6;
+				setRegPt2(YM_REG_CH(TL_OP4, 3), ym2612.channels[5].ops[3].totalLevel);
+			}
+
+			// Decays
+			if (ym2612.channels[0].ops[3].decayRate1 != tmpDecayCH1) {
+				ym2612.channels[0].ops[3].decayRate1 = tmpDecayCH1;
+				setRegPt1(YM_REG_CH(AM_DR_OP4, 1), (ym2612.channels[0].ops[3].amplitudeModulation << 7) | ym2612.channels[0].ops[3].decayRate1);
+			}
+			if (ym2612.channels[1].ops[3].decayRate1 != tmpDecayCH2) {
+				ym2612.channels[1].ops[3].decayRate1 = tmpDecayCH2;
+				setRegPt1(YM_REG_CH(AM_DR_OP4, 2), (ym2612.channels[1].ops[3].amplitudeModulation << 7) | ym2612.channels[1].ops[3].decayRate1);
+			}
+			if (ym2612.channels[2].ops[3].decayRate1 != tmpDecayCH3) {
+				ym2612.channels[2].ops[3].decayRate1 = tmpDecayCH3;
+				setRegPt1(YM_REG_CH(AM_DR_OP4, 3), (ym2612.channels[2].ops[3].amplitudeModulation << 7) | ym2612.channels[2].ops[3].decayRate1);
+			}
+			if (ym2612.channels[3].ops[3].decayRate1 != tmpDecayCH4) {
+				ym2612.channels[3].ops[3].decayRate1 = tmpDecayCH4;
+				setRegPt2(YM_REG_CH(AM_DR_OP4, 1), (ym2612.channels[3].ops[3].amplitudeModulation << 7) | ym2612.channels[3].ops[3].decayRate1);
+			}
+			if (ym2612.channels[4].ops[3].decayRate1 != tmpDecayCH5) {
+				ym2612.channels[4].ops[3].decayRate1 = tmpDecayCH5;
+				setRegPt2(YM_REG_CH(AM_DR_OP4, 2), (ym2612.channels[4].ops[3].amplitudeModulation << 7) | ym2612.channels[4].ops[3].decayRate1);
+			}
+			if (ym2612.channels[5].ops[3].decayRate1 != tmpDecayCH5) {
+				ym2612.channels[5].ops[3].decayRate1 = tmpDecayCH6;
+				setRegPt2(YM_REG_CH(AM_DR_OP4, 3), (ym2612.channels[5].ops[3].amplitudeModulation << 7) | ym2612.channels[5].ops[3].decayRate1);
+			}
+
+			// Pitch
+			if (ym2612.channels[0].frequency != tmpPitchCH1) {
+				ym2612.channels[0].frequency = tmpPitchCH1;
+				setRegPt1(YM_REG_CH(FREQ_MSB, 1), ((ym2612.channels[0].frequencyOctave << 3) | (ym2612.channels[0].frequency >> 8)));
+				setRegPt1(YM_REG_CH(FREQ_LSB, 1), (ym2612.channels[0].frequency & 0xFF));
+			}
+			if (ym2612.channels[1].frequency != tmpPitchCH2) {
+				ym2612.channels[1].frequency = tmpPitchCH2;
+				setRegPt1(YM_REG_CH(FREQ_MSB, 2), ((ym2612.channels[1].frequencyOctave << 3) | (ym2612.channels[1].frequency >> 8)));
+				setRegPt1(YM_REG_CH(FREQ_LSB, 2), (ym2612.channels[1].frequency & 0xFF));
+			}
+			if (ym2612.channels[2].frequency != tmpPitchCH3) {
+				ym2612.channels[2].frequency = tmpPitchCH3;
+				setRegPt1(YM_REG_CH(FREQ_MSB, 3), ((ym2612.channels[2].frequencyOctave << 3) | (ym2612.channels[2].frequency >> 8)));
+				setRegPt1(YM_REG_CH(FREQ_LSB, 3), (ym2612.channels[2].frequency & 0xFF));
+			}
+			if (ym2612.channels[3].frequency != tmpPitchCH4) {
+				ym2612.channels[3].frequency = tmpPitchCH4;
+				setRegPt2(YM_REG_CH(FREQ_MSB, 1), ((ym2612.channels[3].frequencyOctave << 3) | (ym2612.channels[3].frequency >> 8)));
+				setRegPt2(YM_REG_CH(FREQ_LSB, 1), (ym2612.channels[3].frequency & 0xFF));
+			}
+
+			updateCounter = 0;
+		}
 
 		MIDI.read();
 	}
