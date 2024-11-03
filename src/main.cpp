@@ -450,7 +450,7 @@ void setup() {
 
 	MIDI.setHandleNoteOn(handleNoteOn);
 	MIDI.setHandleNoteOff(handleNoteOff);
-	MIDI.begin(1);
+	MIDI.begin(10);
 }
 
 
@@ -483,93 +483,112 @@ void loop() {
 	setRegPt1(0xB4, 0xC0);
 
 	while (true) {
-		tmpPitchCH1 = map(analogRead(A0), 0, 1023, 100, 2047);
-		tmpDecayCH1 = map(analogRead(A1), 0, 1023, 20, 0);
-		tmpTLCH1 = map(analogRead(A2), 0, 1023, 32, 0);
-		tmpPitchCH2 = map(analogRead(A3), 0, 1023, 100, 2047);
-		tmpDecayCH2 = map(analogRead(A4), 0, 1023, 20, 0);
-		tmpTLCH2 = map(analogRead(A5), 0, 1023, 64, 0);
-		tmpPitchCH3 = map(analogRead(A6), 0, 1023, 100, 2047);
-		tmpDecayCH3 = map(analogRead(A7), 0, 1023, 20, 14);
-		tmpTLCH3 = map(analogRead(A8), 0, 1023, 64, 0);
-		tmpPitchCH4 = map(analogRead(A9), 0, 1023, 100, 2047);
-		tmpDecayCH4 = map(analogRead(A10), 0, 1023, 20, 8);
-		tmpTLCH4 = map(analogRead(A11), 0, 1023, 32, 0);
-		tmpDecayCH5 = map(analogRead(A12), 0, 1023, 31, 8);
-		tmpTLCH5 = map(analogRead(A13), 0, 1023, 64, 0);
-		tmpDecayCH6 = map(analogRead(A14), 0, 1023, 31, 8);
-		tmpTLCH6 = map(analogRead(A15), 0, 1023, 32, 0);
+		Serial.println(updateCounter);
+		if (++updateCounter >= 100) {
+			Serial.println("update");
 
-		if (++updateCounter >= 250) {
+			tmpPitchCH1 = map(analogRead(A0), 0, 1023, 200, 1024);
+			tmpDecayCH1 = map(analogRead(A1), 0, 1023, 20, 0);
+			tmpTLCH1 = map(analogRead(A2), 0, 1023, 32, 0);
+			tmpPitchCH2 = map(analogRead(A3), 0, 1023, 100, 2047);
+			tmpDecayCH2 = map(analogRead(A4), 0, 1023, 20, 0);
+			tmpTLCH2 = map(analogRead(A5), 0, 1023, 64, 0);
+			tmpPitchCH3 = map(analogRead(A6), 0, 1023, 100, 2047);
+			tmpDecayCH3 = map(analogRead(A7), 0, 1023, 15, 0);
+			tmpTLCH3 = map(analogRead(A8), 0, 1023, 64, 0);
+			tmpPitchCH4 = map(analogRead(A9), 0, 1023, 100, 2047);
+			tmpDecayCH4 = map(analogRead(A10), 0, 1023, 20, 8);
+			tmpTLCH4 = map(analogRead(A11), 0, 1023, 32, 0);
+			tmpDecayCH5 = map(analogRead(A12), 0, 1023, 31, 8);
+			tmpTLCH5 = map(analogRead(A13), 0, 1023, 64, 0);
+			tmpDecayCH6 = map(analogRead(A14), 0, 1023, 31, 8);
+			tmpTLCH6 = map(analogRead(A15), 0, 1023, 32, 0);
+
 			// Total levels
 			if (ym2612.channels[0].ops[3].totalLevel != tmpTLCH1) {
+				// Serial.println("update tl 1");
 				ym2612.channels[0].ops[3].totalLevel = tmpTLCH1;
 				setRegPt1(YM_REG_CH(TL_OP4, 1), ym2612.channels[0].ops[3].totalLevel);
 			}
 			if (ym2612.channels[1].ops[3].totalLevel != tmpTLCH2) {
+				// Serial.println("update tl 2");
 				ym2612.channels[1].ops[3].totalLevel = tmpTLCH2;
 				setRegPt1(YM_REG_CH(TL_OP4, 2), ym2612.channels[1].ops[3].totalLevel);
 			}
 			if (ym2612.channels[2].ops[3].totalLevel != tmpTLCH3) {
+				// Serial.println("update tl 3");
 				ym2612.channels[2].ops[3].totalLevel = tmpTLCH3;
 				setRegPt1(YM_REG_CH(TL_OP4, 3), ym2612.channels[2].ops[3].totalLevel);
 			}
 			if (ym2612.channels[3].ops[3].totalLevel != tmpTLCH4) {
+				// Serial.println("update tl 4");
 				ym2612.channels[3].ops[3].totalLevel = tmpTLCH4;
 				setRegPt2(YM_REG_CH(TL_OP4, 1), ym2612.channels[3].ops[3].totalLevel);
 			}
 			if (ym2612.channels[4].ops[3].totalLevel != tmpTLCH5) {
+				// Serial.println("update tl 5");
 				ym2612.channels[4].ops[3].totalLevel = tmpTLCH5;
 				setRegPt2(YM_REG_CH(TL_OP4, 2), ym2612.channels[4].ops[3].totalLevel);
 			}
 			if (ym2612.channels[5].ops[3].totalLevel != tmpTLCH6) {
+				// Serial.println("update tl 6");
 				ym2612.channels[5].ops[3].totalLevel = tmpTLCH6;
 				setRegPt2(YM_REG_CH(TL_OP4, 3), ym2612.channels[5].ops[3].totalLevel);
 			}
 
 			// Decays
 			if (ym2612.channels[0].ops[3].decayRate1 != tmpDecayCH1) {
+				// Serial.println("update dc 1");
 				ym2612.channels[0].ops[3].decayRate1 = tmpDecayCH1;
 				setRegPt1(YM_REG_CH(AM_DR_OP4, 1), (ym2612.channels[0].ops[3].amplitudeModulation << 7) | ym2612.channels[0].ops[3].decayRate1);
 			}
 			if (ym2612.channels[1].ops[3].decayRate1 != tmpDecayCH2) {
+				// Serial.println("update dc 2");
 				ym2612.channels[1].ops[3].decayRate1 = tmpDecayCH2;
 				setRegPt1(YM_REG_CH(AM_DR_OP4, 2), (ym2612.channels[1].ops[3].amplitudeModulation << 7) | ym2612.channels[1].ops[3].decayRate1);
 			}
-			if (ym2612.channels[2].ops[3].decayRate1 != tmpDecayCH3) {
-				ym2612.channels[2].ops[3].decayRate1 = tmpDecayCH3;
-				setRegPt1(YM_REG_CH(AM_DR_OP4, 3), (ym2612.channels[2].ops[3].amplitudeModulation << 7) | ym2612.channels[2].ops[3].decayRate1);
+			if (ym2612.channels[2].ops[3].releaseRate != tmpDecayCH3) {
+				// Serial.println("update dc 3");
+				ym2612.channels[2].ops[3].releaseRate = tmpDecayCH3;
+				setRegPt1(YM_REG_CH(SL_RR_OP4, 3), (ym2612.channels[2].ops[3].sustain << 4) | ym2612.channels[2].ops[3].releaseRate);
 			}
 			if (ym2612.channels[3].ops[3].decayRate1 != tmpDecayCH4) {
+				// Serial.println("update dc 4");
 				ym2612.channels[3].ops[3].decayRate1 = tmpDecayCH4;
 				setRegPt2(YM_REG_CH(AM_DR_OP4, 1), (ym2612.channels[3].ops[3].amplitudeModulation << 7) | ym2612.channels[3].ops[3].decayRate1);
 			}
 			if (ym2612.channels[4].ops[3].decayRate1 != tmpDecayCH5) {
+				// Serial.println("update dc 5");
 				ym2612.channels[4].ops[3].decayRate1 = tmpDecayCH5;
 				setRegPt2(YM_REG_CH(AM_DR_OP4, 2), (ym2612.channels[4].ops[3].amplitudeModulation << 7) | ym2612.channels[4].ops[3].decayRate1);
 			}
-			if (ym2612.channels[5].ops[3].decayRate1 != tmpDecayCH5) {
+			if (ym2612.channels[5].ops[3].decayRate1 != tmpDecayCH6) {
+				// Serial.println("update dc 6");
 				ym2612.channels[5].ops[3].decayRate1 = tmpDecayCH6;
 				setRegPt2(YM_REG_CH(AM_DR_OP4, 3), (ym2612.channels[5].ops[3].amplitudeModulation << 7) | ym2612.channels[5].ops[3].decayRate1);
 			}
 
 			// Pitch
 			if (ym2612.channels[0].frequency != tmpPitchCH1) {
+				// Serial.println("update p 1");
 				ym2612.channels[0].frequency = tmpPitchCH1;
 				setRegPt1(YM_REG_CH(FREQ_MSB, 1), ((ym2612.channels[0].frequencyOctave << 3) | (ym2612.channels[0].frequency >> 8)));
 				setRegPt1(YM_REG_CH(FREQ_LSB, 1), (ym2612.channels[0].frequency & 0xFF));
 			}
 			if (ym2612.channels[1].frequency != tmpPitchCH2) {
+				// Serial.println("update p 2");
 				ym2612.channels[1].frequency = tmpPitchCH2;
 				setRegPt1(YM_REG_CH(FREQ_MSB, 2), ((ym2612.channels[1].frequencyOctave << 3) | (ym2612.channels[1].frequency >> 8)));
 				setRegPt1(YM_REG_CH(FREQ_LSB, 2), (ym2612.channels[1].frequency & 0xFF));
 			}
 			if (ym2612.channels[2].frequency != tmpPitchCH3) {
+				// Serial.println("update p 3");
 				ym2612.channels[2].frequency = tmpPitchCH3;
 				setRegPt1(YM_REG_CH(FREQ_MSB, 3), ((ym2612.channels[2].frequencyOctave << 3) | (ym2612.channels[2].frequency >> 8)));
 				setRegPt1(YM_REG_CH(FREQ_LSB, 3), (ym2612.channels[2].frequency & 0xFF));
 			}
 			if (ym2612.channels[3].frequency != tmpPitchCH4) {
+				// Serial.println("update p 4");
 				ym2612.channels[3].frequency = tmpPitchCH4;
 				setRegPt2(YM_REG_CH(FREQ_MSB, 1), ((ym2612.channels[3].frequencyOctave << 3) | (ym2612.channels[3].frequency >> 8)));
 				setRegPt2(YM_REG_CH(FREQ_LSB, 1), (ym2612.channels[3].frequency & 0xFF));
